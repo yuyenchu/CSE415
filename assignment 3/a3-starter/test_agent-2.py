@@ -64,9 +64,8 @@ def check_legal(current_state, move, deterministic=False):
       if dest_pt > 24 or dest_pt < 1:
         born_off_state = bear_off(current_state, pt, dest_pt, whose_move)
         if born_off_state:
-          current_state = born_off_state
-          ##unknown type of state
-          continue
+          ##unknown type of state, need checking
+          return born_off_state
         return None
       
       dest_pt_list = current_state.pointLists[dest_pt-1]
