@@ -10,7 +10,16 @@ def staticEval(state):
 
 
 bestMove, moves, pruning, p_count, s_count
+#bestMove is the move agent will choose at current state
 
+# moves is a dict contain moves from root to its children,
+# where children states are keys and their moves are values
+
+#pruning is boolean for active pruning or not
+
+#p_count is the count for number of pruning actions
+
+#s_count is the count for number of states explored in one move
 
 # Minimax Pseudocode
 def aBMinimax(state, alpha, beta, depth, d_limit):
@@ -20,7 +29,7 @@ def aBMinimax(state, alpha, beta, depth, d_limit):
   if (depth == d_limit):
     return staticEval(state)
 
-   # check if leaf
+  # check if leaf
   children = successors(state)
   s_count += len(children)
 
@@ -29,7 +38,7 @@ def aBMinimax(state, alpha, beta, depth, d_limit):
         bestMove = [] 
     return staticEval(state)
 
-# initialize bestMove
+  # initialize bestMove
   if (depth == 0):
     bestMove = next(iter(moves.values())) #first move possible
     # check if there is only one option
