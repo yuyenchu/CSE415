@@ -1,3 +1,5 @@
+from backgState import *
+
 def useAlphaBetaPruning(prune=False):
   global pruning
   pruning = prune
@@ -14,13 +16,13 @@ def useSpecialStaticEval(func):
 
 def staticEval(state):
   val = 0
-  for i in range(1,25):
+  for i in range(0,24):
     pt=state.pointLists[i]
     for c in pt:
       if (c==0):
-        val += (24-i)
+        val += (23-i)
       else:
-        val -= (i-1)
+        val -= i
   return val
 
 bestMove=[]
@@ -87,10 +89,6 @@ def aBMinimax(state, alpha, beta, depth, d_limit):
           return beta
     return beta
 
-
-from backgState import *
-
-DONE = False
 def check_legal(current_state, move):
   '''return a new state if leagal, return NONE if not,
   assuming move is a string and current_state is legal
@@ -250,3 +248,5 @@ def bearing_off_allowed(state, who):
     if pl[i]==[]: continue
     if pl[i][0]==who: return False
   return True
+
+print(staticEval(bgstate()))
