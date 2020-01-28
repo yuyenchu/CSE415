@@ -1,15 +1,33 @@
 def useAlphaBetaPruning(prune=False):
-
+  global pruning
+  pruning = prune
 def statesAndCutoffsCounts():
+  return p_count
 
+
+#placeholders
 def setMaxPly(maxply=-1):
-
+  return None
 def useSpecialStaticEval(func):
+  return None
+
 
 def staticEval(state):
+  val = 0
+  for i in range(1,25):
+    pt=state.pointLists[i]
+    for c in pt:
+      if (c==0):
+        val += (24-i)
+      else:
+        val -= (i-1)
+  return val
 
-
-bestMove, moves, pruning, p_count, s_count
+bestMove=[]
+moves=[]
+pruning=True
+p_count=0
+s_count=0
 #bestMove is the move agent will choose at current state
 
 # moves is a dict contain moves from root to its children,
@@ -42,11 +60,11 @@ def aBMinimax(state, alpha, beta, depth, d_limit):
   if (depth == 0):
     bestMove = next(iter(moves.values())) #first move possible
     # check if there is only one option
-    if len(children) == 1
+    if (len(children) == 1):
         return None
 
   if (depth%2 == state.whose_move):
-    for (c in children):
+    for c in children:
         result = aBMinimax(c, alpha, beta, depth+1, d_limit)
         if (result > alpha):
           alpha = result
@@ -58,34 +76,24 @@ def aBMinimax(state, alpha, beta, depth, d_limit):
     return alpha
 
   else:
-    for (c in children):
+    for c in children:
         result = aBMinimax(c, alpha, beta, depth+1, d_limit)
         if (result < beta):
           beta = result
           if (depth == 0):
               bestMove = moves[c]
-        if (beta <= alpha and pruning)
+        if (beta <= alpha and pruning):
           p_count += 1
           return beta
     return beta
-
-  
-
-DETERMINISTIC = True
-# for the deterministic version, where the dice are loaded in a way
-# that prevents all randomness.
-
-#DETERMINISTIC = False
-# for the stochastic version of the game ("SSBG"), so that dice get
-# rolled normally.
 
 
 from backgState import *
 
 DONE = False
-def check_legal(current_state, move, deterministic=False):
-  '''return a new state if leagal, return NONE if not
-  assuming move is a string
+def check_legal(current_state, move):
+  '''return a new state if leagal, return NONE if not,
+  assuming move is a string and current_state is legal
   '''
   whose_move = current_state.whose_move
   new_state = None
