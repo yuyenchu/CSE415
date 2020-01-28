@@ -24,7 +24,7 @@ bestMove, moves, pruning, p_count, s_count
 # Minimax Pseudocode
 def aBMinimax(state, alpha, beta, depth, d_limit):
 
-  global bestMove, moves
+  global bestMove, moves, pruning, p_count, s_count
   # check if at search bound
   if (depth == d_limit):
     return staticEval(state)
