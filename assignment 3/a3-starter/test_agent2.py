@@ -1,18 +1,9 @@
-DETERMINISTIC = True
-# for the deterministic version, where the dice are loaded in a way
-# that prevents all randomness.
-
-#DETERMINISTIC = False
-# for the stochastic version of the game ("SSBG"), so that dice get
-# rolled normally.
-
-
 from backgState import *
 
 DONE = False
-def check_legal(current_state, move, deterministic=False):
+def check_legal(current_state, move):
   '''return a new state if leagal, return NONE if not
-  assuming move is a string
+  assuming move is a string & current_state is legal
   '''
   whose_move = current_state.whose_move
   new_state = None
@@ -128,7 +119,7 @@ def bear_off(state, src_pt, dest_pt, who):
   return born_off_state
 
 
-def moves_exist(state, die1, die2, who):
+def moves_exist(state, who, die1, die2):
   return False  # placeholder.
 
 def any_on_bar(state, who):
