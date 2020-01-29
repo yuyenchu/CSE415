@@ -1,7 +1,7 @@
 from backgState import *
 
 DONE = False
-def check_legal(current_state, move):
+def check_legal(current_state, move, die1, die2):
   '''return a new state if leagal, return NONE if not
   assuming move is a string & current_state is legal
   '''

@@ -89,7 +89,45 @@ def aBMinimax(state, alpha, beta, depth, d_limit):
           return beta
     return beta
 
-def check_legal(current_state, move):
+#generating all possible states
+def successors(state,die1,die2):
+  mover = state.whose_move
+  ptsWithColor = []
+  possibleStates = []
+  count = 0
+  for pt in state.pointLists:
+    count += 1
+    if mover in pt:
+      ptsWithColor.append(count)
+  for pt1 in ptsWithColor:
+    new_state = check_legal(state,str(pt1)+','+str(pt1+die1), die1, die2)
+    if (new_state != None):
+        print(str(pt1)+','+str(pt1+die1))
+        possibleStates.append(new_state)
+    new_state = check_legal(state,str(pt1)+','+str(pt1+die2)+',R', die1, die2)
+    if (new_state != None):
+        print(str(pt1)+','+str(pt1+die2)+',R')
+        possibleStates.append(new_state)
+    new_state = check_legal(state,str(pt1)+',P', die1, die2)
+    if (new_state != None):
+        print(str(pt1)+',P')
+        possibleStates.append(new_state)
+    new_state = check_legal(state,str(pt1)+',P,R', die1, die2)
+    if (new_state != None):
+        print(str(pt1)+',P,R')
+        possibleStates.append(new_state)
+    for pt2 in ptsWithColor:
+      new_state = check_legal(state,str(pt1)+','+str(pt2), die1, die2)
+      if (new_state != None):
+        print(str(pt1)+','+str(pt2))
+        possibleStates.append(new_state)
+      new_state = check_legal(state,str(pt1)+','+str(pt2) + ',R', die1, die2)
+      if (new_state != None):
+        print(str(pt1)+','+str(pt2) + ',R')
+        possibleStates.append(new_state)
+  return possibleStates
+
+def check_legal(current_state, move, die1, die2):
   '''return a new state if leagal, return NONE if not,
   assuming move is a string and current_state is legal
   '''
@@ -155,8 +193,9 @@ def check_legal(current_state, move):
       new_state.pointLists[pt-1].pop()
       new_state = hit(new_state, dest_pt_list, dest_pt)
       new_state.pointLists[dest_pt-1].append(whose_move)
-      new_state.whose_move=1-whose_move
-      return new_state
+      current_state=new_state
+    new_state.whose_move=1-whose_move
+    return new_state
 
 def hit(new_state, dest_pt_list, dest_pt):
   opponent = 1-new_state.whose_move
