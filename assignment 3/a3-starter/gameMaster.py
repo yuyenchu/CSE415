@@ -53,22 +53,25 @@ outcomes.  This is useful in terms of allowing alpha-beta pruning to
 make sense.
 '''
 
-import BackMan as agent1
+from agent_SSBG import *
+from ayu1998_cv27_dbg_agent import *
 #import McGammon as agent2
-import BackMan as agent2
+
 TIME_LIMIT=3.0 # 2 seconds.
 
-DETERMINISTIC = True
+# DETERMINISTIC = True
 # for the deterministic version, where the dice are loaded in a way
 # that prevents all randomness.
 
-#DETERMINISTIC = False
+DETERMINISTIC = False
 # for the stochastic version of the game ("SSBG"), so that dice get
 # rolled normally.
 
 
 from backgState import *
 
+agent1 = ayu1998_cv27_ssbg_agent()
+agent2 = ayu1998_cv27_dbg_agent()
 DONE = False
 def run(agent1, agent2, max_secs_per_move, initial_state=bgstate(), deterministic=False):
   '''Start and monitor a game of Simplified Backgammon.
@@ -302,6 +305,7 @@ def win_detected(state, who):
   else: return len(state.red_off)==15
 
 run(agent1, agent2, TIME_LIMIT, deterministic=DETERMINISTIC)
+print(agent1.statesAndCutoffsCounts())
 # For use in testing:
 #import testStates
 #run(agent1, agent2, TIME_LIMIT, testStates.WHITE_TO_BEAR_OFF, deterministic=DETERMINISTIC)
