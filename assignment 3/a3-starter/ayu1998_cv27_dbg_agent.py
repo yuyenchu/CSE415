@@ -27,7 +27,7 @@ class ayu1998_cv27_dbg_agent:
   
   def move(self,state, die1, die2):
     global maxPly
-    print(maxPly)
+    # print(maxPly)
     if maxPly < 0:
       maxPly=3
     abMinimax(state,-10000,10000,die1,die2,maxPly)
@@ -69,7 +69,6 @@ def staticEval(state):
         val -= count
         val -= len(state.red_off) * 100
   return val
-
 
 #alpha beta minimax
 def abMinimax(state, alpha, beta, die1, die2, plyLeft):
