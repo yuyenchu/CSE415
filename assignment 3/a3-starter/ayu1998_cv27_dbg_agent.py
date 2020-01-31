@@ -13,12 +13,24 @@ Simplified Backgammon
 
 from backgState import *
 
+#global varibles
+stateToMove={}
+pcount = 0
+maxPly=2
+chosen_state=None
+pruning=True
+spe_func=None
+
 class ayu1998_cv27_dbg_agent:
   def __init__(self):
     pass
   
   def move(self,state, die1, die2):
-    alphaBetaMinimax(state,-10000,10000,die1,die2,maxPly)
+    global maxPly
+    print(maxPly)
+    if maxPly < 0:
+      maxPly=3
+    abMinimax(state,-10000,10000,die1,die2,maxPly)
     if chosen_state != None:
         return stateToMove[chosen_state]
     return 'P'
@@ -34,17 +46,8 @@ class ayu1998_cv27_dbg_agent:
     global maxPly
     maxPly = maxply
     
-  def useSpecialStaticEval(fself,unc):
+  def useSpecialStaticEval(self,func):
     spe_func = func
-
-
-#global varibles
-stateToMove={}
-pcount = 0
-maxPly=2
-chosen_state=None
-pruning=True
-spe_func=None
 
 def staticEval(state):
   if (spe_func):
@@ -68,8 +71,8 @@ def staticEval(state):
   return val
 
 
-# Minimax
-def alphaBetaMinimax(state, alpha, beta, die1, die2, plyLeft):
+#alpha beta minimax
+def abMinimax(state, alpha, beta, die1, die2, plyLeft):
   
   global chosen_state, pcount, pruning
   if plyLeft == 0:
@@ -87,7 +90,7 @@ def alphaBetaMinimax(state, alpha, beta, die1, die2, plyLeft):
   mover = state.whose_move
   if mover == 0:
     for c in children:
-      val = alphaBetaMinimax(c,alpha,beta,die1,die2,plyLeft-1)
+      val = abMinimax(c,alpha,beta,die1,die2,plyLeft-1)
       if val > alpha:
         alpha = val
         if plyLeft == maxPly:
@@ -98,7 +101,7 @@ def alphaBetaMinimax(state, alpha, beta, die1, die2, plyLeft):
     return alpha
   else:
     for c in children:
-      val = alphaBetaMinimax(c,alpha,beta,die1,die2,plyLeft-1)
+      val = abMinimax(c,alpha,beta,die1,die2,plyLeft-1)
       if val < beta:
         beta = val
         if plyLeft == maxPly:

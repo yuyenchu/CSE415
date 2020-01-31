@@ -53,7 +53,7 @@ outcomes.  This is useful in terms of allowing alpha-beta pruning to
 make sense.
 '''
 
-from agent_SSBG import *
+from ayu1998_cv27_ssbg_agent import *
 from ayu1998_cv27_dbg_agent import *
 #import McGammon as agent2
 
@@ -305,7 +305,7 @@ def win_detected(state, who):
   else: return len(state.red_off)==15
 
 run(agent1, agent2, TIME_LIMIT, deterministic=DETERMINISTIC)
-print(agent1.statesAndCutoffsCounts())
+print(agent2.statesAndCutoffsCounts())
 # For use in testing:
 #import testStates
 #run(agent1, agent2, TIME_LIMIT, testStates.WHITE_TO_BEAR_OFF, deterministic=DETERMINISTIC)

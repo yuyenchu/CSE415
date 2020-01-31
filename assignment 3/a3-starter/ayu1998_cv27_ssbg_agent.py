@@ -12,11 +12,21 @@ Simplified Backgammon
 
 from backgState import *
 
+#global varibles
+stateToMove={}
+maxPly=1
+chosen_state=None
+spe_func=None
+
 class ayu1998_cv27_ssbg_agent:
   def __init__(self):
     pass
   
   def move(self,state, die1, die2):
+    global maxPly
+    # print(maxPly)
+    if maxPly < 0:
+      maxPly=3
     expectiMinimax(state,die1,die2,0)
     if chosen_state != None:
         return stateToMove[chosen_state]
@@ -26,19 +36,12 @@ class ayu1998_cv27_ssbg_agent:
     global maxPly
     maxPly = maxply
     
-  def useSpecialStaticEval(fself,unc):
+  def useSpecialStaticEval(self,func):
     spe_func = func
 
   def useUniformDistribution(self):
     pass
 
-
-
-#global varibles
-stateToMove={}
-maxPly=2
-chosen_state=None
-spe_func=None
 
 def staticEval(state):
   if (spe_func):
@@ -62,7 +65,7 @@ def staticEval(state):
   return val
 
 
-# expecti minimax
+#expectiminimax
 def expectiMinimax(state, die1, die2,depth):
   
   global chosen_state, pcount, pruning
