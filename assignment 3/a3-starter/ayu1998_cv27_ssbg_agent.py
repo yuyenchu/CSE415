@@ -19,9 +19,11 @@ chosen_state=None
 spe_func=None
 
 class ayu1998_cv27_ssbg_agent:
+  # Initiating the agent
   def __init__(self):
     pass
   
+  # Method returns the best move given the state as well as the 2 die.
   def move(self,state, die1, die2):
     global maxPly
     # print(maxPly)
@@ -32,17 +34,22 @@ class ayu1998_cv27_ssbg_agent:
         return stateToMove[chosen_state]
     return 'P'
 
+  # sets the max depth because we count layers on max or min layers
+  # which are on 2x-1 layers only thus when setting depth, we have an
+  # extra calculation
   def setMaxPly(self,maxply=-1):
     global maxPly
-    maxPly = maxply
-    
+    maxPly = maxply * 2 - 1
+
+  # sets the static eval to the passed function
   def useSpecialStaticEval(self,func):
+    global spe_func
     spe_func = func
 
   def useUniformDistribution(self):
     pass
 
-
+# static evaluation of the state
 def staticEval(state):
   if (spe_func):
     return spe_func(state)

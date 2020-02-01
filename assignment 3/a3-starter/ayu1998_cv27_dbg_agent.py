@@ -5,7 +5,7 @@ Student number: 1707068; 1760258
 
 Assignment 3, in CSE 415, Winter 2020.
  
-This file contains an agent using  
+This file contains an agent using 
 alpha beta Minimax to play Deterministic 
 Simplified Backgammon
 '''
@@ -22,9 +22,12 @@ pruning=True
 spe_func=None
 
 class ayu1998_cv27_dbg_agent:
+
+  # Initiating the agent
   def __init__(self):
     pass
   
+  # Method returns the best move given the state as well as the 2 die.
   def move(self,state, die1, die2):
     global maxPly
     # print(maxPly)
@@ -35,20 +38,26 @@ class ayu1998_cv27_dbg_agent:
         return stateToMove[chosen_state]
     return 'P'
 
+  # determines whether alpha beta pruning will be applied
   def useAlphaBetaPruning(self,prune=False):
     global pruning
     pruning = prune
 
+  # returns tuple (state count, prune count)
   def statesAndCutoffsCounts(self):
     return (len(stateToMove),pcount)
 
+  # sets the max depth
   def setMaxPly(self,maxply=-1):
     global maxPly
     maxPly = maxply
-    
+  
+  # sets the static eval to the passed function
   def useSpecialStaticEval(self,func):
+    global spe_func
     spe_func = func
 
+# static evaluation of the state
 def staticEval(state):
   if (spe_func):
     return spe_func(state)
